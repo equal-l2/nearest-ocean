@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>最寄海岸線検索</title>
+    <script src="./main.js" defer></script>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+
+  <body>
+    <main class="section">
+      <h1 class="title">最寄海岸線検索(日本国内)</h1>
+      <div class="container">
+        <button id="get-current" class="block button is-primary">
+          現在地から計算</button
+        ><br />
+        <details class="block container">
+          <summary>手動入力</summary>
+          <div class="block">
+            <label class="label">Google形式</label>
+            <input
+              class="input is-half"
+              type="text"
+              id="googlian"
+              autocomplete="off"
+              placeholder='"緯度,経度" or "緯度 経度"'
+            />
+          </div>
+          <div class="block">
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label" style="white-space: nowrap">緯度</label>
+              </div>
+              <input
+                class="input"
+                type="text"
+                id="lat"
+                autocomplete="off"
+                placeholder="0~90"
+              />
+            </div>
+
+            <div class="field is-horizontal">
+              <div class="field-label">
+                <label class="label" style="white-space: nowrap">経度</label>
+              </div>
+              <input
+                class="input"
+                type="text"
+                id="lon"
+                autocomplete="off"
+                placeholder="0~180"
+              />
+            </div>
+          </div>
+          <button class="block button" id="run">計算実行</button>
+        </details>
+        <article class="block message" id="result-mesg">
+          <div class="message-header">最寄までの経路URL</div>
+          <div class="message-body">
+            <span id="error"></span>
+            <a id="result" href=""></a>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <footer class="footer">
+      使用データ:
+      <a href="https://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-C23.html"
+        >国土数値情報　海岸線データ</a
+      >
+    </footer>
+
+    <style></style>
+  </body>
+</html>
