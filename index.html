@@ -15,6 +15,9 @@
     <main class="section">
       <h1 class="title">最寄海岸線検索(日本国内)</h1>
       <div class="container">
+        <p class="block">
+          現在地の緯度・経度から最も近い海岸線への経路URLを生成します。
+        </p>
         <button id="get-current" class="block button is-primary">
           現在地から計算</button
         ><br />
@@ -40,7 +43,7 @@
                 type="text"
                 id="lat"
                 autocomplete="off"
-                placeholder="0~90"
+                placeholder="0.0 ~ 90.0"
               />
             </div>
 
@@ -53,14 +56,14 @@
                 type="text"
                 id="lon"
                 autocomplete="off"
-                placeholder="0~180"
+                placeholder="0.0 ~ 180.0"
               />
             </div>
           </div>
           <button class="block button" id="run">計算実行</button>
         </details>
         <article class="block message" id="result-mesg">
-          <div class="message-header">最寄までの経路URL</div>
+          <div class="message-header">経路URL</div>
           <div class="message-body">
             <span id="error"></span>
             <a id="result" href=""></a>
