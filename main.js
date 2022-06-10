@@ -5,41 +5,42 @@ fetch("./coastline.json")
   .then((data) => (lines = data))
   .catch((e) => console.log(e));
 
+// vector arithmetic
 const dot = (a, b) => a[0] * b[0] + a[1] * b[1];
 const sub = (a, b) => [a[0] - b[0], a[1] - b[1]];
 const add = (a, b) => [a[0] + b[0], a[1] + b[1]];
-const sc_mul = (k, v) => [k * v[0], k * v[1]];
-const sqdist = (a, b) => Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2);
+const scalarMul = (k, v) => [k * v[0], k * v[1]];
+const sqDist = (a, b) => Math.pow(a[0] - b[0], 2) + Math.pow(a[1] - b[1], 2);
 
 function findNearestCoastline(lon, lat) {
   // N.B. coords in `lines` is [lon, lat] but google only accepts "lat,lon"
   const current = [lon, lat];
-  let min_p = [Infinity, Infinity];
-  let min_dist = Infinity;
+  let minP = [Infinity, Infinity];
+  let minDist = Infinity;
   for (const coords of lines) {
     const cnt = coords.length;
     for (let i = 0; i < cnt - 1; i++) {
       const start = coords[i];
       const end = coords[i + 1];
-      const vec_a = sub(end, start);
-      const vec_b = sub(current, start);
-      const online_len = dot(vec_a, vec_b) / dot(vec_a, vec_a);
+      const vecA = sub(end, start); // a := start -> end
+      const vecB = sub(current, start); // b := start -> current
+      const onlineLen = dot(vecA, vecB) / dot(vecA, vecA); // (a, b) / (a, a) = b cosθ / |a|
 
-      const local_nearest = (() => {
-        if (online_len <= 0) return start;
-        else if (online_len >= 1) return end;
-        else return add(start, sc_mul(online_len, vec_a));
+      const localNearest = (() => {
+        if (onlineLen <= 0) return start;
+        else if (onlineLen >= 1) return end;
+        else return add(start, scalarMul(onlineLen, vecA)); // start + (a/|a|) * b cosθ
       })();
 
-      const dist = sqdist(current, local_nearest);
-      if (dist < min_dist) {
-        min_dist = dist;
-        min_p = local_nearest;
+      const dist = sqDist(current, localNearest);
+      if (dist < minDist) {
+        minDist = dist;
+        minP = localNearest;
       }
     }
   }
 
-  return min_p;
+  return minP;
 }
 
 function doCalc() {
@@ -63,8 +64,8 @@ function doCalc() {
     aResult.innerText = link;
     resultMesg.classList.remove("is-danger");
   } else {
-    resultMesg.classList.add("is-danger");
     spanError.innerText = "経度・緯度に不正な値が入力されました";
+    resultMesg.classList.add("is-danger");
   }
 }
 
@@ -78,12 +79,8 @@ function getGeoloc() {
     },
     (e) => {
       const text = (() => {
-        switch (e.code) {
-          case 1:
-            return "位置情報取得が拒否されています";
-          default:
-            return "位置情報取得に失敗しました";
-        }
+        if (e.code === 1) return "位置情報取得が拒否されています";
+        else return "位置情報取得に失敗しました";
       })();
       alert(text);
     }
