@@ -11,65 +11,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
 
-  <body>
-    <main class="section">
+  <body class="section">
+    <noscript class="section">
+      <div class="message is-danger">
+        <p class="message-header">このページの動作にはJavaScriptが必要です</p>
+        <figure class="message-body">
+          <blockquote
+            cite="https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled#comment14518676_121241"
+          >
+            Life's too short. It's 2012 - Enable javascript or go home
+          </blockquote>
+          <figcaption>
+            —Yarin,
+            <cite
+              ><a
+                href="https://stackoverflow.com/questions/121203/how-to-detect-if-javascript-is-disabled#comment14518676_121241"
+                >Stack Overflow</a
+              ></cite
+            >
+          </figcaption>
+        </figure>
+      </div>
+    </noscript>
+    <header class="block">
       <h1 class="title">最寄海岸線検索(日本国内)</h1>
-      <div class="container">
-        <p class="block">
-          現在地の緯度・経度から最も近い海岸線への経路URLを生成します。
-        </p>
-        <button id="get-current" class="block button is-primary">
-          現在地から計算</button
-        ><br />
-        <details class="block container">
-          <summary>手動入力</summary>
-          <div class="block">
-            <label class="label">Google形式</label>
+      <h2 class="subtitle">
+        現在地の緯度・経度から最も近い海岸線への経路URLを生成します。
+      </h2>
+    </header>
+    <main class="block">
+      <button
+        id="get-current"
+        class="block button is-primary is-loading"
+        disabled
+      >
+        現在地から計算</button
+      ><br />
+      <details class="block container">
+        <summary>手動入力</summary>
+        <div class="block">
+          <label class="label">Google形式</label>
+          <input
+            class="input is-half"
+            type="text"
+            id="googlian"
+            autocomplete="off"
+            placeholder='"緯度,経度" or "緯度 経度"'
+          />
+        </div>
+        <div class="block">
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label class="label" style="white-space: nowrap">緯度</label>
+            </div>
             <input
-              class="input is-half"
+              class="input"
               type="text"
-              id="googlian"
+              id="lat"
               autocomplete="off"
-              placeholder='"緯度,経度" or "緯度 経度"'
+              placeholder="0.0 ~ 90.0"
             />
           </div>
-          <div class="block">
-            <div class="field is-horizontal">
-              <div class="field-label">
-                <label class="label" style="white-space: nowrap">緯度</label>
-              </div>
-              <input
-                class="input"
-                type="text"
-                id="lat"
-                autocomplete="off"
-                placeholder="0.0 ~ 90.0"
-              />
-            </div>
 
-            <div class="field is-horizontal">
-              <div class="field-label">
-                <label class="label" style="white-space: nowrap">経度</label>
-              </div>
-              <input
-                class="input"
-                type="text"
-                id="lon"
-                autocomplete="off"
-                placeholder="0.0 ~ 180.0"
-              />
+          <div class="field is-horizontal">
+            <div class="field-label">
+              <label class="label" style="white-space: nowrap">経度</label>
             </div>
+            <input
+              class="input"
+              type="text"
+              id="lon"
+              autocomplete="off"
+              placeholder="0.0 ~ 180.0"
+            />
           </div>
-          <button class="block button" id="run">計算実行</button>
-        </details>
-        <article class="block message" id="result-mesg">
-          <div class="message-header">経路URL</div>
-          <div class="message-body">
-            <span id="error"></span>
-            <a id="result" href=""></a>
-          </div>
-        </article>
-      </div>
+        </div>
+        <button class="block button is-loading" id="run" disabled>
+          計算実行
+        </button>
+      </details>
+      <article class="block message" id="result-mesg">
+        <div class="message-header">経路URL</div>
+        <div class="message-body">
+          <span id="error"></span>
+          <a id="result" href=""></a>
+        </div>
+      </article>
     </main>
 
     <footer class="footer">

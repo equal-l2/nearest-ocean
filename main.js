@@ -2,7 +2,10 @@ let lines;
 
 fetch("./coastline.json")
   .then((resp) => resp.json())
-  .then((data) => (lines = data))
+  .then((data) => {
+    lines = data;
+    enableButtons();
+  })
   .catch((e) => console.log(e));
 
 // vector arithmetic
@@ -123,6 +126,15 @@ function setGooglianValidity(isValid) {
   } else {
     googlianInput.classList.add("is-danger");
   }
+}
+
+function enableButtons() {
+  const runButton = document.getElementById("run");
+  const getCurrentButton = document.getElementById("get-current");
+  const buttons = [runButton, getCurrentButton];
+
+  buttons.forEach((v) => v.classList.remove("is-loading"));
+  buttons.forEach((v) => (v.disabled = false));
 }
 
 document.getElementById("run").addEventListener("click", doCalc);
