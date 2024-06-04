@@ -1,3 +1,6 @@
+"use strict";
+/// @ts-check
+
 let lines;
 
 fetch("./coastline.json")
@@ -86,7 +89,7 @@ function getGeoloc() {
         else return "位置情報取得に失敗しました";
       })();
       alert(text);
-    }
+    },
   );
 }
 

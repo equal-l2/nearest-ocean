@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "checkJs": true,
+    "allowImportingTsExtensions": true
+  },
+  "exclude": ["node_modules", "**/node_modules/*"]
+}

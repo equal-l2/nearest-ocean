@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "author": "equal-l2",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "fix": "eslint --ext .js . --fix && prettier --write ."
+    "fix": "eslint . --fix && prettier --write ."
   },
   "devDependencies": {
-    "eslint": "^8.17.0",
-    "eslint-config-prettier": "^8.5.0",
-    "prettier": "^2.6.2"
+    "eslint": "^9.4.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-define-config": "^2.1.0",
+    "globals": "^15.3.0",
+    "htmlhint": "^1.1.4",
+    "prettier": "^3.3.0"
   }
 }
