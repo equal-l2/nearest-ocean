@@ -85,10 +85,14 @@ function getGeoloc() {
     },
     (e) => {
       const text = (() => {
-        if (e.code === 1) return "位置情報取得が拒否されています";
-        else return "位置情報取得に失敗しました";
+        switch (e.code) {
+          case e.PERMISSION_DENIED: return "位置情報取得が拒否されています";
+          case e.POSITION_UNAVAILABLE: return "位置情報取得に失敗しました";
+          case e.TIMEOUT: return "所定の時間内に位置情報を取得できませんでした";
+          default: return `不明なエラー "${e.code}"`;
+        }
       })();
-      alert(text);
+      alert(text + `\n(msg: ${e.message})`);
     },
   );
 }
